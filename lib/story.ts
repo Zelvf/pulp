@@ -36,12 +36,6 @@ export const initialState: WorldState = {
   activeThread: "Who sent the dead frequency?",
 };
 
-export const initialEvents: StoryEvent[] = [
-  { id: "evt-009", action: "pressure", label: "Pressure raised", actor: "7eQ…m91", detail: "The courier has six minutes left.", time: "2m ago", verified: true },
-  { id: "evt-008", action: "witness", label: "Witness introduced", actor: "Bm4…x0P", detail: "A tram conductor saw the impossible passenger.", time: "11m ago", verified: true },
-  { id: "evt-007", action: "paranoia", label: "Paranoia seeded", actor: "9Lk…2Vr", detail: "Vale no longer trusts Ilya's alibi.", time: "19m ago", verified: true },
-];
-
 export const openingScene = [
   "The rain came down in straight silver lines, too disciplined to be weather. It hissed against the tram cables and made every window in the Glass District look briefly occupied.",
   "Detective Mara Vale stood beneath the dead clock at Platform Nine, watching a train that did not appear on the municipal map. Its doors were open. No one got off. Somewhere inside, a telephone kept ringing.",
@@ -58,14 +52,4 @@ export function applyAction(state: WorldState, action: ActionType): WorldState {
   if (action === "location") { next.location = "The Undertram Archive"; next.pressure = Math.min(100, next.pressure + 4); }
   if (action === "pressure") { next.pressure = Math.min(100, next.pressure + 8); next.hour = "03:18"; }
   return next;
-}
-
-export function fallbackScene(action: ActionType, state: WorldState): string {
-  const lines: Record<ActionType, string> = {
-    witness: "The conductor emerged from the rain with a punched ticket pressed into his palm. “I saw the passenger,” he said, looking past Vale toward the empty train. “The trouble is, detective, she had your face.”",
-    paranoia: "Ilya's coat chimed. Not a phone—a second set of tram tokens, still warm from the machine. Vale had watched the city destroy every token twelve years ago. He caught her looking and slowly closed his hand.",
-    location: "Behind the station map, a service door sighed open on stairs descending below the flooded rails. A brass plaque named the darkness THE UNDERTRAM ARCHIVE. Something below stamped a ticket.",
-    pressure: "The departure board began counting backward. Six minutes became five. Across the platform, every pane of glass showed the train leaving, though the real carriage had not moved.",
-  };
-  return `${lines[action]} The pressure held at ${state.pressure}%, and the dead frequency kept breathing.`;
 }

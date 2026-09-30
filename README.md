@@ -10,7 +10,7 @@ PULP is a live serial novel with a visible world-state. Community actions add ch
 
 ## Token / Solana role
 
-`$PULP` is the story-action token. A verified action (initially a small devnet transfer or burn) grants a narrowly defined prompt such as “introduce a witness” or “make the detective paranoid.” The app can also display indexed market activity as an artistic signal, but it must not promise economic outcomes.
+`$PULP` is the story-action token. A verified Solana transfer grants a narrowly defined prompt such as “introduce a witness” or “make the detective paranoid.” The app can also display indexed market activity as an artistic signal, but it must not promise economic outcomes.
 
 ## Public proof loop
 
@@ -43,7 +43,7 @@ Readers can inspect the event that caused every state change and compare a seale
 
 ## Running the MVP
 
-PULP is now a working Next.js application. It includes the live reader, canonical world-state inspector, deterministic story actions, event ledger, draft chapter proof, Solana signature verification, and an optional OpenAI scene generator. With no credentials it runs in demo mode and remains fully interactive.
+PULP is a live Next.js application with a public reader, canonical world-state inspector, wallet-created Solana actions, a persistent event ledger, chapter proofs, and OpenAI-generated scenes.
 
 ```bash
 npm install
@@ -55,12 +55,13 @@ Open `http://localhost:3000`. Add environment variables when you are ready to en
 
 ### Environment variables
 
-- `OPENAI_API_KEY` and optional `OPENAI_MODEL`: generate scenes with the Responses API. Without these, the deterministic story engine is used.
-- `SOLANA_RPC_URL`: RPC used to confirm submitted signatures (defaults to Solana devnet).
+- `OPENAI_API_KEY` and `OPENAI_MODEL`: generate canonical scenes with the Responses API.
+- `SOLANA_RPC_URL`: RPC used to build, submit, and confirm reader transactions.
 - `PULP_TREASURY_ADDRESS`: when set, verified transactions must include this address.
-- `PULP_TOKEN_MINT` and `PULP_MIN_LAMPORTS`: reserved for a production token-transfer policy.
-- `PINATA_JWT` and `PINATA_GATEWAY`: reserved for the final chapter-sealing flow.
-- `CRON_SECRET`: reserved for an authenticated scheduled scene job.
+- `PULP_MIN_LAMPORTS`: minimum treasury transfer required for a story action.
+- `DATABASE_URL`: Postgres persistence for canonical state, events, and generated scenes.
+- `PINATA_JWT` and `PINATA_GATEWAY`: permanent chapter-sealing credentials.
+- `CRON_SECRET`: authentication for scheduled and administrative story operations.
 
 ### Commands
 
